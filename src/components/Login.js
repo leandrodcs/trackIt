@@ -43,7 +43,6 @@ const Wrapper = styled.div`
   }
 
   input::placeholder {
-
     color: #DBDBDB;
   }
 
@@ -56,7 +55,7 @@ const Wrapper = styled.div`
     color: #FFFFFF;
     font-size: 21px;
   }
-  
+
   a {
     font-size: 14px;
     color: #52B6FF;

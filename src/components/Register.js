@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../assets/logo.png';
 
-export default function Cadastro() {
+export default function Register() {
   return (
     <>
       <Wrapper>
@@ -45,7 +45,6 @@ const Wrapper = styled.div`
   }
 
   input::placeholder {
-
     color: #DBDBDB;
   }
 
