@@ -1,17 +1,44 @@
+import axios from 'axios';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../assets/logo.png';
+import { useHistory } from 'react-router';
 
 export default function Register() {
+
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
+  const [password, setPassword] = useState("");
+  const history = useHistory();
+
+  function register() {
+    const body = {
+      email,
+      name,
+      image,
+      password,
+    }
+    axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", body)
+      .then(res => {
+        console.log(res);
+        history.push("/");
+        console.log(history);
+      })
+      .catch(err => console.log);
+
+  }
+
   return (
     <>
       <Wrapper>
         <img src={logo} alt=""/>
-        <input placeholder="email" />
-        <input placeholder="senha" />
-        <input placeholder="nome" />
-        <input placeholder="foto" />
-        <button>Cadastrar</button>
+        <input value={email} onChange={e => setEmail(e.target.value)} placeholder="email" />
+        <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="senha" />
+        <input value={name} onChange={e => setName(e.target.value)} placeholder="nome" />
+        <input value={image} onChange={e => setImage(e.target.value)} placeholder="foto" />
+        <button onClick={register}>Cadastrar</button>
         <Link to="/">Já tem uma conta? Faça login!</Link>
       </Wrapper>
     </>

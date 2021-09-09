@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <HeaderStyle>
       <Title>TrackIt</Title>
-      <img src={profilePic} />
+      <img src={profilePic} alt=""/>
     </HeaderStyle>
 );
 }

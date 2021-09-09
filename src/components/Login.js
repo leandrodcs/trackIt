@@ -1,15 +1,36 @@
+import axios from 'axios';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../assets/logo.png';
+import { useHistory } from 'react-router';
 
-export default function Login() {
+export default function Login({setUser}) {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const history = useHistory();
+
+  function logIn() {
+    const body = {
+      email,
+      password
+    };
+    axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", body)
+      .then(res => {
+        setUser(res.data);
+        history.push("/hoje");
+      })
+      .catch(err => console.log);
+  }
+
   return (
     <>
       <Wrapper>
         <img src={logo} alt=""/>
-        <input placeholder="email" />
-        <input placeholder="senha" />
-        <button>Entrar</button>
+        <input value={email} onChange={e => setEmail(e.target.value)} placeholder="email" />
+        <input value={password} onChange={e => setPassword(e.target.value)} placeholder="senha" />
+        <button onClick={logIn}>Entrar</button>
         <Link to="/cadastro">Não tem uma conta? Cadastre-se!</Link>
       </Wrapper>
     </>
