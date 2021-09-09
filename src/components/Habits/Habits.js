@@ -34,7 +34,7 @@ export default function Habits() {
   function createHabit() {
     const body = {
       name: newHabit,
-      days,
+      days: [1,4],
     }
     const config = {
       headers: {
@@ -43,7 +43,9 @@ export default function Habits() {
     }
     axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', body, config)
       .then(res => {
-        console.log(res)
+        console.log(res);
+        setHabits([...habits, res.data]);
+        setShowAddWindow(false);
       })
       .catch(err => console.log);
   }
@@ -73,7 +75,7 @@ export default function Habits() {
             </Buttons>
           </AddWindow>
           <HabitsList>
-            {habits.map(habit => <Habit habitInfo={habit} key={habit.id}/>)}
+            {habits.map(habit => <Habit habitInfo={habit} key={habit.id} setHabits={setHabits} habits={habits}/>)}
           </HabitsList>
           {/* <EmptyMsg>
             Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!

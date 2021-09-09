@@ -1,11 +1,30 @@
 import styled from "styled-components";
 import { BsTrash } from 'react-icons/bs';
+import { useContext } from "react";
+import UserContext from '../../contexts/UserContext';
 import Day from "./Day";
+import axios from "axios";
 
 
-export default function Habit({habitInfo}) {
 
+export default function Habit({habitInfo, setHabits, habits}) {
+
+  const userInfo = useContext(UserContext);
   const weekDays = ["S","T","Q","Q","S","S","D"];
+
+  function deleteHabit() {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    }
+    axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habitInfo.id}`, config)
+      .then(res => {
+        console.log(res)
+        setHabits(habits.filter(habit => !(habit.id === habitInfo.id) ? true : false))
+      })
+      .catch(err => console.log);
+  }
 
   return (
     <HabitStyle>
@@ -13,7 +32,7 @@ export default function Habit({habitInfo}) {
       <DaysList>
       {weekDays.map((weekDay, index) =><Day weekDay={weekDay} key={index} index={index} habitDays={habitInfo.days}/>)}
       </DaysList>
-      <BsTrash />
+      <BsTrash onClick={deleteHabit} />
     </HabitStyle>
   );
 }
