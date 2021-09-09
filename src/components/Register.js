@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../assets/logo.png';
 import { useHistory } from 'react-router';
+import Loader from "react-loader-spinner";
 
 export default function Register() {
 
@@ -11,6 +12,7 @@ export default function Register() {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [password, setPassword] = useState("");
+  const [load, setLoad] =useState(false);
   const history = useHistory();
 
   function register() {
@@ -20,25 +22,27 @@ export default function Register() {
       image,
       password,
     }
+    setLoad(true);
     axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", body)
       .then(res => {
-        console.log(res);
         history.push("/");
-        console.log(history);
+        setLoad(false);
       })
-      .catch(err => console.log);
-
+      .catch(err => {
+        alert("Preencha todos os campos corretamente!");
+        setLoad(false);
+      });
   }
 
   return (
     <>
-      <Wrapper>
+      <Wrapper load={load}>
         <img src={logo} alt=""/>
         <input value={email} onChange={e => setEmail(e.target.value)} placeholder="email" />
         <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="senha" />
         <input value={name} onChange={e => setName(e.target.value)} placeholder="nome" />
         <input value={image} onChange={e => setImage(e.target.value)} placeholder="foto" />
-        <button onClick={register}>Cadastrar</button>
+        <button onClick={register}>{load ? <Loader type="ThreeDots" color="#FFFFFF" height={13} /> : `Cadastrar`}</button>
         <Link to="/">Já tem uma conta? Faça login!</Link>
       </Wrapper>
     </>
@@ -68,7 +72,8 @@ const Wrapper = styled.div`
     outline: none;
     font-size: 20px;
     padding: 0 10px 0 10px;
-
+    background: ${props => props.load ? `#F2F2F2` : `#FFFFFF`};
+    pointer-events: ${props => props.load ? `none` : `initial`};
   }
 
   input::placeholder {
@@ -83,6 +88,8 @@ const Wrapper = styled.div`
     border-radius: 5px;
     color: #FFFFFF;
     font-size: 21px;
+    pointer-events: ${props => props.load ? `none` : `initial`};
+    opacity: ${props => props.load ? `0.7` : `1`};
   }
   
   a {

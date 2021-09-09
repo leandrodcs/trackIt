@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../assets/logo.png';
 import { useHistory } from 'react-router';
+import Loader from "react-loader-spinner";
 
 export default function Login({setUser}) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [load, setLoad] =useState(false);
   const history = useHistory();
 
   function logIn() {
@@ -16,21 +18,26 @@ export default function Login({setUser}) {
       email,
       password
     };
+    setLoad(true);
     axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", body)
       .then(res => {
         setUser(res.data);
         history.push("/hoje");
+        setLoad(false);
       })
-      .catch(err => console.log);
+      .catch(err => {
+        alert("Email ou senha incorretos ou inexistentes!");
+        setLoad(false);
+      });
   }
 
   return (
     <>
-      <Wrapper>
+      <Wrapper load={load}>
         <img src={logo} alt=""/>
         <input value={email} onChange={e => setEmail(e.target.value)} placeholder="email" />
-        <input value={password} onChange={e => setPassword(e.target.value)} placeholder="senha" />
-        <button onClick={logIn}>Entrar</button>
+        <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="senha" />
+        <button onClick={logIn}>{load ? <Loader type="ThreeDots" color="#FFFFFF" height={13} /> : `Entrar`}</button>
         <Link to="/cadastro">Não tem uma conta? Cadastre-se!</Link>
       </Wrapper>
     </>
@@ -60,7 +67,8 @@ const Wrapper = styled.div`
     outline: none;
     font-size: 20px;
     padding: 0 10px 0 10px;
-
+    background: ${props => props.load ? `#F2F2F2` : `#FFFFFF`};
+    pointer-events: ${props => props.load ? `none` : `initial`};
   }
 
   input::placeholder {
@@ -75,6 +83,8 @@ const Wrapper = styled.div`
     border-radius: 5px;
     color: #FFFFFF;
     font-size: 21px;
+    pointer-events: ${props => props.load ? `none` : `initial`};
+    opacity: ${props => props.load ? `0.7` : `1`};
   }
 
   a {
