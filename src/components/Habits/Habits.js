@@ -15,40 +15,47 @@ export default function Habits() {
   return (
     <>
       <Header />
-      <Wrapper>
-        <HabbitsHeader>
-          <p>Meus hábitos</p>
-          <button>
-            <BiPlus />
-          </button>
-        </HabbitsHeader>
-        <AddWindow>
-          <input placeholder="nome do hábito" />
-          <DaysList>
-            {days.map(day => <Day day={day}/>)}
-          </DaysList>
-          <Buttons>
-            <div />
-            <div>
-              <button>Cancelar</button>
-              <button>Salvar</button>
-            </div>
-          </Buttons>
-        </AddWindow>
-        <HabitsList>
-        <Habit />
-        <Habit />
-        <Habit />
-        <Habit />
-        </HabitsList>
-        {/* <EmptyMsg>
-          Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
-        </EmptyMsg> */}
-      </Wrapper>
+      <Background>
+        <Wrapper>
+          <HabbitsHeader>
+            <p>Meus hábitos</p>
+            <button>
+              <BiPlus />
+            </button>
+          </HabbitsHeader>
+          <AddWindow>
+            <input placeholder="nome do hábito" />
+            <DaysList>
+              {days.map(day => <Day day={day}/>)}
+            </DaysList>
+            <Buttons>
+              <div />
+              <div>
+                <button>Cancelar</button>
+                <button>Salvar</button>
+              </div>
+            </Buttons>
+          </AddWindow>
+          <HabitsList>
+          <Habit />
+          <Habit />
+          <Habit />
+          </HabitsList>
+          {/* <EmptyMsg>
+            Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
+          </EmptyMsg> */}
+        </Wrapper>
+      </Background>
       <FooterMenu />
     </>
   );
 }
+
+const Background = styled.div`
+  min-height: calc(100vh - 180px);
+  width: 100vw;
+  background: #f2f2f2;
+`;
 
 const HabitsList = styled.div`
   display: flex;
@@ -118,8 +125,6 @@ const AddWindow = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: 100vw;
-  min-height: calc(100vh - 70px);
   margin-top: 70px;
   padding: 0 16px 0 16px;
   background: #f2f2f2;

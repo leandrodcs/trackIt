@@ -7,25 +7,29 @@ export default function Today() {
   return (
     <>
       <Header />
-      <Wrapper>
-        <Day>
-          <p>Segunda, 17/05</p>
-          <p>Nenhum hábito concluído ainda</p>
-        </Day>
-        <TaskList>
-          <Task />
-          <Task />
-          <Task />
-        </TaskList>
-      </Wrapper>
+      <Background>
+        <Wrapper>
+          <Day>
+            <p>Segunda, 17/05</p>
+            <p>Nenhum hábito concluído ainda</p>
+          </Day>
+          <TaskList>
+            <Task />
+          </TaskList>
+        </Wrapper>
+      </Background>
       <FooterMenu />
     </>
   );
 }
 
-const Wrapper = styled.div`
+const Background = styled.div`
+  min-height: calc(100vh - 180px);
   width: 100vw;
-  min-height: calc(100vh - 70px);
+  background: #f2f2f2;
+`;
+
+const Wrapper = styled.div`
   margin-top: 70px;
   padding: 0 16px 0 16px;
   background: #f2f2f2;
