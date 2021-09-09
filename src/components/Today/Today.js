@@ -1,7 +1,7 @@
-import Header from "./Header";
+import Header from "../Header";
 import styled from 'styled-components';
 import Task from './Task';
-import FooterMenu from "./FooterMenu";
+import FooterMenu from "../FooterMenu";
 
 export default function Today() {
   return (
@@ -25,9 +25,9 @@ export default function Today() {
 
 const Wrapper = styled.div`
   width: 100vw;
-  height: calc(100vh - 70px);
+  min-height: calc(100vh - 70px);
   margin-top: 70px;
-  padding: 0 17px 0 17px;
+  padding: 0 16px 0 16px;
   background: #f2f2f2;
   gap: 28px;
   display: flex;

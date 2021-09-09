@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import profilePic from '../assets/Profile-default.png';
 import { useContext } from 'react';
 import UserContext from '../contexts/UserContext';
 
