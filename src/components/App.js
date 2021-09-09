@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import UserContext from '../contexts/UserContext';
 import '../reset.css';
 import Login from './Login';
 import Register from './Register';
 import Today from './Today';
+
 
 export default function App() {
 
@@ -12,14 +14,16 @@ export default function App() {
   console.log(user);
 
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path ="/" render={() => <Login setUser={setUser} />}/>
-        <Route exact path ="/cadastro" render={() => <Register />}/>
-        <Route exact path ="/habitos" render={() => <></>}/>
-        <Route exact path ="/hoje" render={() => <Today />}/>
-        <Route exact path ="/historico" render={() => <></>}/>
-      </Switch>
-    </BrowserRouter>
+    <UserContext.Provider value={user}>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path ="/" render={() => <Login setUser={setUser} />}/>
+          <Route exact path ="/cadastro" render={() => <Register />}/>
+          <Route exact path ="/habitos" render={() => <></>}/>
+          <Route exact path ="/hoje" render={() => <Today />}/>
+          <Route exact path ="/historico" render={() => <></>}/>
+        </Switch>
+      </BrowserRouter>
+    </UserContext.Provider>
   )
 }

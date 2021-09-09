@@ -1,11 +1,17 @@
 import styled from 'styled-components';
 import profilePic from '../assets/Profile-default.png';
+import { useContext } from 'react';
+import UserContext from '../contexts/UserContext';
 
 export default function Header() {
+
+  const userInfo = useContext(UserContext);
+  const {image} =userInfo;
+
   return (
     <HeaderStyle>
       <Title>TrackIt</Title>
-      <img src={profilePic} alt=""/>
+      <img src={image} alt=""/>
     </HeaderStyle>
 );
 }
@@ -25,6 +31,7 @@ const HeaderStyle = styled.header`
   img {
     width: 51px;
     height: 51px;
+    border-radius: 100px;
   }
 `;
 
