@@ -18,6 +18,7 @@ export default function Header() {
 const HeaderStyle = styled.header`
   background: #126BA5;
   position: fixed;
+  z-index: 1;
   top: 0;
   left: 0;
   height: 70px;

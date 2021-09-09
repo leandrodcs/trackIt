@@ -26,7 +26,6 @@ export default function Habits() {
     }
     axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
     .then(res => {
-      console.log(res)
       setHabits(res.data);
     })
     .catch(err => console.log);
@@ -74,7 +73,7 @@ export default function Habits() {
             </Buttons>
           </AddWindow>
           <HabitsList>
-            <Habit />
+            {habits.map(habit => <Habit habitInfo={habit} key={habit.id}/>)}
           </HabitsList>
           {/* <EmptyMsg>
             Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!

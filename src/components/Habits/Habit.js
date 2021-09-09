@@ -3,15 +3,15 @@ import { BsTrash } from 'react-icons/bs';
 import Day from "./Day";
 
 
-export default function Habit() {
+export default function Habit({habitInfo}) {
 
   const weekDays = ["S","T","Q","Q","S","S","D"];
 
   return (
     <HabitStyle>
-      <p>Ler 1 capítulo de livro</p>
+      <p>{habitInfo.name}</p>
       <DaysList>
-      {weekDays.map((weekDay, index) =><Day weekDay={weekDay}/>)}
+      {weekDays.map((weekDay, index) =><Day weekDay={weekDay} key={index} index={index} habitDays={habitInfo.days}/>)}
       </DaysList>
       <BsTrash />
     </HabitStyle>

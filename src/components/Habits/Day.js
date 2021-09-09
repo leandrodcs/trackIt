@@ -1,12 +1,11 @@
 import styled from "styled-components";
 import { useState } from "react";
+import axios from "axios";
 
 
-export default function Day({weekDay, addDay}) {
+export default function Day({weekDay, addDay, index, habitDays}) {
 
   const [selected, setSelected] = useState(false);
-
-
 
   if(addDay) {
     return (
@@ -15,12 +14,9 @@ export default function Day({weekDay, addDay}) {
   }
   else {
     return (
-      <WeekDay selected={selected}>{weekDay}</WeekDay>
+      <WeekDay selected={habitDays.includes(index) ? true : false}>{weekDay}</WeekDay>
     );
   }
-
-
-
 }
 
 const WeekDay = styled.li`
