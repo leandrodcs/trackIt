@@ -4,13 +4,13 @@ import FooterMenu from "../FooterMenu";
 import { BiPlus } from 'react-icons/bi';
 import Day from "./Day";
 import Habit from "./Habit";
+import { useState } from "react";
 
 
 export default function Habits() {
 
   const days = ["D","S","T","Q","Q","S","S",];
-
-
+  const [showAddWindow, setShowAddWindow] = useState(false);
 
   return (
     <>
@@ -19,11 +19,11 @@ export default function Habits() {
         <Wrapper>
           <HabbitsHeader>
             <p>Meus hábitos</p>
-            <button>
+            <button onClick={() => setShowAddWindow(true)}>
               <BiPlus />
             </button>
           </HabbitsHeader>
-          <AddWindow>
+          <AddWindow showAddWindow={showAddWindow}>
             <input placeholder="nome do hábito" />
             <DaysList>
               {days.map(day => <Day day={day}/>)}
@@ -31,7 +31,7 @@ export default function Habits() {
             <Buttons>
               <div />
               <div>
-                <button>Cancelar</button>
+                <button onClick={() => setShowAddWindow(false)}>Cancelar</button>
                 <button>Salvar</button>
               </div>
             </Buttons>
@@ -100,6 +100,7 @@ const DaysList = styled.ul`
 `;
 
 const AddWindow = styled.div`
+  display: ${props => props.showAddWindow ? `initial` : `none`};
   width: 100%;
   height: 180px;
   background: #FFFFFF;
