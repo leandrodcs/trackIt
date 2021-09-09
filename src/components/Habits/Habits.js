@@ -35,7 +35,12 @@ export default function Habits() {
             </div>
           </Buttons>
         </AddWindow>
+        <HabitsList>
         <Habit />
+        <Habit />
+        <Habit />
+        <Habit />
+        </HabitsList>
         {/* <EmptyMsg>
           Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
         </EmptyMsg> */}
@@ -44,6 +49,13 @@ export default function Habits() {
     </>
   );
 }
+
+const HabitsList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px
+
+`;
 
 const Buttons = styled.div`
   display: flex;

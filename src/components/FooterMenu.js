@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 export default function FooterMenu() {
     return (
+      <>
         <Menu>
             <Link to="/habitos">Hábitos</Link>
             <Link to="/hoje">
@@ -11,8 +12,16 @@ export default function FooterMenu() {
             </Link>
             <Link to="/historico">Histórico</Link>
         </Menu>
+        <MarginBottom />
+      </>
     );
 }
+
+const MarginBottom = styled.div`
+  width: 100%;
+  height: 110px;
+  background: #f2f2f2;
+`;
 
 const Menu = styled.footer`
   position: fixed;
