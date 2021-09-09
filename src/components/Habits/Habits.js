@@ -4,13 +4,50 @@ import FooterMenu from "../FooterMenu";
 import { BiPlus } from 'react-icons/bi';
 import Day from "./Day";
 import Habit from "./Habit";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
+import axios from "axios";
+import UserContext from '../../contexts/UserContext';
 
 
 export default function Habits() {
 
-  const days = ["D","S","T","Q","Q","S","S",];
+  const weekDays = ["S","T","Q","Q","S","S","D",];
   const [showAddWindow, setShowAddWindow] = useState(false);
+  const userInfo = useContext(UserContext);
+  const [habits, setHabits] = useState([]);
+  const [newHabit, setNewHabit] = useState("");
+  const [days, setDays] = useState([]);
+
+  useEffect(() => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    }
+    axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
+    .then(res => {
+      console.log(res)
+      setHabits(res.data);
+    })
+    .catch(err => console.log);
+  }, []);
+
+  function createHabit() {
+    const body = {
+      name: newHabit,
+      days,
+    }
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    }
+    axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', body, config)
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => console.log);
+  }
 
   return (
     <>
@@ -24,22 +61,20 @@ export default function Habits() {
             </button>
           </HabbitsHeader>
           <AddWindow showAddWindow={showAddWindow}>
-            <input placeholder="nome do hábito" />
+            <input placeholder="nome do hábito" value={newHabit} onChange={e => setNewHabit(e.target.value)} />
             <DaysList>
-              {days.map(day => <Day day={day}/>)}
+              {weekDays.map((weekDay, index) => <Day weekDay={weekDay} key={index} addDay />)}
             </DaysList>
             <Buttons>
               <div />
               <div>
                 <button onClick={() => setShowAddWindow(false)}>Cancelar</button>
-                <button>Salvar</button>
+                <button onClick={createHabit}>Salvar</button>
               </div>
             </Buttons>
           </AddWindow>
           <HabitsList>
-          <Habit />
-          <Habit />
-          <Habit />
+            <Habit />
           </HabitsList>
           {/* <EmptyMsg>
             Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!

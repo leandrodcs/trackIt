@@ -5,13 +5,13 @@ import Day from "./Day";
 
 export default function Habit() {
 
-  const days = ["D","S","T","Q","Q","S","S",];
+  const weekDays = ["S","T","Q","Q","S","S","D"];
 
   return (
     <HabitStyle>
       <p>Ler 1 capítulo de livro</p>
       <DaysList>
-      {days.map(day =><Day day={day}/>)}
+      {weekDays.map((weekDay, index) =><Day weekDay={weekDay}/>)}
       </DaysList>
       <BsTrash />
     </HabitStyle>

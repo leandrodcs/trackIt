@@ -1,9 +1,26 @@
 import styled from "styled-components";
+import { useState } from "react";
 
-export default function Day({day}) {
-  return (
-    <WeekDay>{day}</WeekDay>
-  );
+
+export default function Day({weekDay, addDay}) {
+
+  const [selected, setSelected] = useState(false);
+
+
+
+  if(addDay) {
+    return (
+      <WeekDay selected={selected} onClick={() => selected ? setSelected(false) : setSelected(true)}>{weekDay}</WeekDay>
+    );
+  }
+  else {
+    return (
+      <WeekDay selected={selected}>{weekDay}</WeekDay>
+    );
+  }
+
+
+
 }
 
 const WeekDay = styled.li`
@@ -14,7 +31,7 @@ const WeekDay = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #DBDBDB;
+  color: ${props => props.selected ? `#FFFFFF` : `#DBDBDB`};
   font-size: 20px;
-  background: #FFFFFF;
+  background: ${props => props.selected ? `#CFCFCF` : `#FFFFFF`};
 `; 
