@@ -1,6 +1,7 @@
 import Header from "./Header";
 import styled from 'styled-components';
 import Task from './Task';
+import FooterMenu from "./FooterMenu";
 
 export default function Today() {
   return (
@@ -17,6 +18,7 @@ export default function Today() {
           <Task />
         </TaskList>
       </Wrapper>
+      <FooterMenu />
     </>
   );
 }
@@ -41,7 +43,7 @@ const Day = styled.div`
     line-height: 29px;
     color: #126BA5;
   }
-  
+
   p:nth-child(2){
     font-size: 18px;
     line-height: 22px;
