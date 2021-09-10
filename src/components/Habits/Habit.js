@@ -10,9 +10,12 @@ import axios from "axios";
 export default function Habit({habitInfo, setHabits, habits}) {
 
   const userInfo = useContext(UserContext);
-  const weekDays = ["S","T","Q","Q","S","S","D"];
+  const weekDays = ["S", "T", "Q", "Q", "S", "S", "D"];
 
   function deleteHabit() {
+    if(!window.confirm("Deseja mesmo excluir esse hábito?")) {
+      return;
+    }
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.token}`
@@ -30,7 +33,7 @@ export default function Habit({habitInfo, setHabits, habits}) {
     <HabitStyle>
       <p>{habitInfo.name}</p>
       <DaysList>
-      {weekDays.map((weekDay, index) =><Day weekDay={weekDay} key={index} index={index} habitDays={habitInfo.days}/>)}
+      {weekDays.map((weekDay, index) =><Day weekDay={weekDay} key={index} dayNumber={index + 1} habitDays={habitInfo.days}/>)}
       </DaysList>
       <BsTrash onClick={deleteHabit} />
     </HabitStyle>

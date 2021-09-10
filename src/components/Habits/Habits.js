@@ -11,7 +11,7 @@ import UserContext from '../../contexts/UserContext';
 
 export default function Habits() {
 
-  const weekDays = ["S","T","Q","Q","S","S","D",];
+  const weekDays = ["S", "T", "Q", "Q", "S", "S", "D"];
   const [showAddWindow, setShowAddWindow] = useState(false);
   const userInfo = useContext(UserContext);
   const [habits, setHabits] = useState([]);
@@ -31,10 +31,24 @@ export default function Habits() {
     .catch(err => console.log);
   }, []);
 
+  function includeDay(dayNumber, selecting) {
+    if(selecting) {
+      setDays([...days, dayNumber]);
+    }
+    else {
+      setDays(days.filter(day => !(day === dayNumber)));
+    }
+  }
+
+  function clearData() {
+    setDays([]);
+    setNewHabit("");
+  }
+
   function createHabit() {
     const body = {
       name: newHabit,
-      days: [1,4],
+      days,
     }
     const config = {
       headers: {
@@ -43,11 +57,11 @@ export default function Habits() {
     }
     axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', body, config)
       .then(res => {
-        console.log(res);
         setHabits([...habits, res.data]);
         setShowAddWindow(false);
+        clearData();
       })
-      .catch(err => console.log);
+      .catch(err => alert(err));
   }
 
   return (
@@ -64,7 +78,7 @@ export default function Habits() {
           <AddWindow showAddWindow={showAddWindow}>
             <input placeholder="nome do hábito" value={newHabit} onChange={e => setNewHabit(e.target.value)} />
             <DaysList>
-              {weekDays.map((weekDay, index) => <Day weekDay={weekDay} key={index} addDay />)}
+              {weekDays.map((weekDay, index) => <Day key={index} addDay weekDay={weekDay}  dayNumber={index + 1} habitDays={days} includeDay={includeDay} />)}
             </DaysList>
             <Buttons>
               <div />
@@ -75,11 +89,16 @@ export default function Habits() {
             </Buttons>
           </AddWindow>
           <HabitsList>
-            {habits.map(habit => <Habit habitInfo={habit} key={habit.id} setHabits={setHabits} habits={habits}/>)}
+            {habits.map((habit, index) => <Habit habitInfo={habit} key={habit.id} dayNumber={index + 1} setHabits={setHabits} habits={habits} />)}
           </HabitsList>
-          {/* <EmptyMsg>
-            Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
-          </EmptyMsg> */}
+          {!habits.length
+            ?
+              <EmptyMsg>
+              Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
+              </EmptyMsg>
+            :
+              ""
+          }
         </Wrapper>
       </Background>
       <FooterMenu />

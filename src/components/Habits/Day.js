@@ -3,18 +3,29 @@ import { useState } from "react";
 import axios from "axios";
 
 
-export default function Day({weekDay, addDay, index, habitDays}) {
+export default function Day({weekDay, addDay, dayNumber, habitDays, includeDay}) {
 
   const [selected, setSelected] = useState(false);
 
   if(addDay) {
+
+    function selectDay() {
+      if(!selected) {
+        setSelected(true);
+        includeDay(dayNumber, true);
+      }
+      if(selected) {
+        setSelected(false);
+        includeDay(dayNumber, false);
+      }
+    }
     return (
-      <WeekDay selected={selected} onClick={() => selected ? setSelected(false) : setSelected(true)}>{weekDay}</WeekDay>
+      <WeekDay selected={habitDays.includes(dayNumber)} onClick={selectDay}>{weekDay}</WeekDay>
     );
   }
   else {
     return (
-      <WeekDay selected={habitDays.includes(index) ? true : false}>{weekDay}</WeekDay>
+      <WeekDay selected={habitDays.includes(dayNumber) ? true : false}>{weekDay}</WeekDay>
     );
   }
 }
