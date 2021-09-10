@@ -1,12 +1,16 @@
+import axios from 'axios';
 import { FaCheck } from 'react-icons/fa';
 import styled from 'styled-components';
 
-export default function Task() {
+export default function Task({taskInfo}) {
+
+  const {name, currentSequence, highestSequence, done, id} = taskInfo;
+
   return (
     <Wrapper>
       <div>
-        <p>Ler 1 capítulo de livro</p>
-        <p>Sequência atual: 3 dias<br/>Seu recorde: 5 dias</p>
+        <p>{name}</p>
+        <p>Sequência atual: {currentSequence} dias<br/>Seu recorde: {highestSequence} dias</p>
       </div>
       <button>
         <FaCheck />

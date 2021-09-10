@@ -2,8 +2,33 @@ import Header from "../Header";
 import styled from 'styled-components';
 import Task from './Task';
 import FooterMenu from "../FooterMenu";
+import UserContext from '../../contexts/UserContext';
+import { useState, useContext, useEffect } from "react";
+import axios from "axios";
+
+
+
 
 export default function Today() {
+
+  const userInfo = useContext(UserContext);
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    }
+    axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config)
+    .then(res => {
+      console.log(res.data);
+      setTasks(res.data);
+    })
+    .catch(err => console.log);
+  }, []);
+
+
   return (
     <>
       <Header />
@@ -14,7 +39,7 @@ export default function Today() {
             <p>Nenhum hábito concluído ainda</p>
           </Day>
           <TaskList>
-            <Task />
+            {tasks.map(task => <Task taskInfo={task} key={task.id} />)}
           </TaskList>
         </Wrapper>
       </Background>

@@ -19,8 +19,6 @@ export default function Habits() {
   const [days, setDays] = useState([]);
   const [load, setLoad] = useState(false);
 
-  console.log(days);
-
   useEffect(() => {
     const config = {
       headers: {
@@ -29,6 +27,7 @@ export default function Habits() {
     }
     axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
     .then(res => {
+      console.log(res.data);
       setHabits(res.data);
     })
     .catch(err => console.log);
