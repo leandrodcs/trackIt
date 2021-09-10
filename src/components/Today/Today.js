@@ -5,6 +5,8 @@ import FooterMenu from "../FooterMenu";
 import UserContext from '../../contexts/UserContext';
 import { useState, useContext, useEffect } from "react";
 import axios from "axios";
+import dayjs from "dayjs";
+import 'dayjs/locale/pt-br'
 
 
 
@@ -35,7 +37,7 @@ export default function Today() {
       <Background>
         <Wrapper>
           <Day>
-            <p>Segunda, 17/05</p>
+            <p>{dayjs().locale('pt-br').format('dddd')}, {dayjs().locale('pt-br').format('DD/MM')}</p>
             <p>Nenhum hábito concluído ainda</p>
           </Day>
           <TaskList>

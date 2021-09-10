@@ -1,18 +1,36 @@
 import axios from 'axios';
 import { FaCheck } from 'react-icons/fa';
 import styled from 'styled-components';
+import UserContext from '../../contexts/UserContext';
+import { useContext } from "react";
+
 
 export default function Task({taskInfo}) {
 
   const {name, currentSequence, highestSequence, done, id} = taskInfo;
+  const userInfo = useContext(UserContext);
+
+  function markHabitAsDone() {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    }
+    axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`, config)
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => alert(err));
+  }
+
 
   return (
-    <Wrapper>
+    <Wrapper done={done}>
       <div>
         <p>{name}</p>
         <p>Sequência atual: {currentSequence} dias<br/>Seu recorde: {highestSequence} dias</p>
       </div>
-      <button>
+      <button onClick={markHabitAsDone}>
         <FaCheck />
       </button>
     </Wrapper>
@@ -53,7 +71,7 @@ const Wrapper = styled.div`
     height: 69px;
     border-radius: 5px;
     border: 1px solid #E7E7E7;
-    background: #EBEBEB;
+    background: ${props => props.done ? `#8FC549` : `#EBEBEB`};
     font-size: 35px;
     display: flex;
     align-items: center;
