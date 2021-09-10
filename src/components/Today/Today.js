@@ -9,31 +9,32 @@ import axios from "axios";
 import dayjs from "dayjs";
 import 'dayjs/locale/pt-br'
 
-
-
-
 export default function Today({setProgress}) {
 
   const userInfo = useContext(UserContext);
   const progressInfo = useContext(ProgressContext);
   const [tasks, setTasks] = useState([]);
-  const config = {
-    headers: {
-      Authorization: `Bearer ${userInfo.token}`
-    }
-  }
 
   useEffect(() => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    }
     axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config)
     .then(res => {
-      console.log(res.data);
       setTasks(res.data);
       updateProgress(res.data);
     })
-    .catch(err => console.log);
-  }, []);
+    .catch(err => alert(err));
+  }, [userInfo.token]);
 
   function updateList() {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    }
     axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config)
     .then(res => {
       console.log(res.data);
@@ -52,7 +53,6 @@ export default function Today({setProgress}) {
     })
     setProgress(progress);
   }
-
 
   return (
     <>

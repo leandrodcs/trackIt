@@ -2,7 +2,6 @@ import FooterMenu from "./FooterMenu";
 import Header from "./Header";
 import styled from 'styled-components';
 
-
 export default function history() {
   return (
     <>
@@ -42,6 +41,5 @@ const Wrapper = styled.div`
     color: #666666;
     font-size: 18px;
     line-height: 22px;
-    
   }
 `;

@@ -1,7 +1,4 @@
 import styled from "styled-components";
-import { useState } from "react";
-import axios from "axios";
-
 
 export default function Day({weekDay, addDay, dayNumber, habitDays, includeDay, load}) {
 

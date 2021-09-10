@@ -2,7 +2,7 @@ import axios from 'axios';
 import { FaCheck } from 'react-icons/fa';
 import styled from 'styled-components';
 import UserContext from '../../contexts/UserContext';
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 
 export default function Task({taskInfo, updateList}) {
@@ -18,10 +18,9 @@ export default function Task({taskInfo, updateList}) {
     }
     axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/${done ? `uncheck` : `check`}`, {}, config)
       .then(res => {
-        console.log(res.data);
           updateList()
       })
-      .catch(err => console.log);
+      .catch(err => alert(err));
   }
 
   return (

@@ -8,7 +8,6 @@ import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import UserContext from '../../contexts/UserContext';
 
-
 export default function Habits() {
 
   const weekDays = ["S", "T", "Q", "Q", "S", "S", "D"];
@@ -31,7 +30,7 @@ export default function Habits() {
       setHabits(res.data);
     })
     .catch(err => console.log);
-  }, []);
+  }, [userInfo.token]);
 
   function includeDay(dayNumber, selecting) {
     if(selecting) {
@@ -188,7 +187,6 @@ const AddWindow = styled.div`
   input::placeholder {
     color: #DBDBDB;
   }
-
 `;
 
 const Wrapper = styled.div`
