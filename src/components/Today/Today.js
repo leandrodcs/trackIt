@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Task from './Task';
 import FooterMenu from "../FooterMenu";
 import UserContext from '../../contexts/UserContext';
+import ProgressContext from '../../contexts/ProgressContext';
 import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
@@ -11,24 +12,46 @@ import 'dayjs/locale/pt-br'
 
 
 
-export default function Today() {
+export default function Today({setProgress}) {
 
   const userInfo = useContext(UserContext);
+  const progressInfo = useContext(ProgressContext);
   const [tasks, setTasks] = useState([]);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userInfo.token}`
+    }
+  }
 
   useEffect(() => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`
-      }
-    }
     axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config)
     .then(res => {
       console.log(res.data);
       setTasks(res.data);
+      updateProgress(res.data);
     })
     .catch(err => console.log);
   }, []);
+
+  function updateList() {
+    axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config)
+    .then(res => {
+      console.log(res.data);
+      setTasks(res.data);
+      updateProgress(res.data);
+    })
+    .catch(err => console.log);
+  }
+
+  function updateProgress(tasks) {
+    let progress = 0;
+    tasks.forEach(task => {
+      if(task.done) {
+        progress+= (1/tasks.length);
+      }
+    })
+    setProgress(progress);
+  }
 
 
   return (
@@ -36,12 +59,12 @@ export default function Today() {
       <Header />
       <Background>
         <Wrapper>
-          <Day>
+          <Day progress={progressInfo}>
             <p>{dayjs().locale('pt-br').format('dddd')}, {dayjs().locale('pt-br').format('DD/MM')}</p>
-            <p>Nenhum hábito concluído ainda</p>
+            <p>{!progressInfo ? `Nenhum hábito concluído ainda` : `${(progressInfo*100).toFixed(0)}% dos hábitos concluídos`}</p>
           </Day>
           <TaskList>
-            {tasks.map(task => <Task taskInfo={task} key={task.id} />)}
+            {tasks.map(task => <Task taskInfo={task} key={task.id} updateList={updateList}/>)}
           </TaskList>
         </Wrapper>
       </Background>
@@ -72,13 +95,13 @@ const Day = styled.div`
   p:nth-child(1){
     font-size: 23px;
     line-height: 29px;
-    color: #126BA5;
+    color: #126BA5; 
   }
 
   p:nth-child(2){
     font-size: 18px;
     line-height: 22px;
-    color: #BABABA;
+    color: ${props => props.progress ? `#8FC549` : `#BABABA`};
   }
 `;
 

@@ -5,38 +5,32 @@ import UserContext from '../../contexts/UserContext';
 import { useContext, useState } from "react";
 
 
-export default function Task({taskInfo}) {
+export default function Task({taskInfo, updateList}) {
 
   const {name, currentSequence, highestSequence, done, id} = taskInfo;
   const userInfo = useContext(UserContext);
-  const [complete, setComplete] = useState(done);
 
-  function markHabitAsComplete() {
+  function markHabitAsDone() {
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.token}`
       }
     }
-    axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/${complete ? `uncheck` : `check`}`, {}, config)
+    axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/${done ? `uncheck` : `check`}`, {}, config)
       .then(res => {
         console.log(res.data);
-        if(complete) {
-          setComplete(false);
-        }
-        else {
-          setComplete(true);
-        }
+          updateList()
       })
       .catch(err => console.log);
   }
 
   return (
-    <Wrapper complete={complete}>
+    <Wrapper done={done} highest={highestSequence} current={currentSequence}>
       <div>
         <p>{name}</p>
-        <p>Sequência atual: {currentSequence} dias<br/>Seu recorde: {highestSequence} dias</p>
+        <p>Sequência atual: <span>{currentSequence} dias</span><br/>Seu recorde: <span>{highestSequence} dias</span></p>
       </div>
-      <button onClick={markHabitAsComplete}>
+      <button onClick={markHabitAsDone}>
         <FaCheck />
       </button>
     </Wrapper>
@@ -72,12 +66,19 @@ const Wrapper = styled.div`
     justify-content: space-between;
   }
 
+  span:first-child {
+    color: ${props => props.done ? `#8FC549` : `#666666`};
+  }
+  span:last-child {
+    color: ${({highest, current}) => (highest === current) ? `#8FC549` : `#666666`};
+  }
+
   button {
     width: 69px;
     height: 69px;
     border-radius: 5px;
     border: 1px solid #E7E7E7;
-    background: ${props => props.complete ? `#8FC549` : `#EBEBEB`};
+    background: ${props => props.done ? `#8FC549` : `#EBEBEB`};
     font-size: 35px;
     display: flex;
     align-items: center;
