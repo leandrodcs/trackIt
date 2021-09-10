@@ -83,8 +83,8 @@ export default function Habits() {
               <BiPlus />
             </button>
           </HabbitsHeader>
-          <AddWindow showAddWindow={showAddWindow}>
-            <input placeholder="nome do hábito" value={newHabit} onChange={e => setNewHabit(e.target.value)} />
+          <AddWindow showAddWindow={showAddWindow} load={load}>
+            <input placeholder="nome do hábito" value={newHabit}  onChange={e => setNewHabit(e.target.value)} />
             <DaysList>
               {weekDays.map((weekDay, index) => <Day key={index} addDay weekDay={weekDay}  
               dayNumber={index + 1} habitDays={days} includeDay={includeDay} load={load}/>)}
@@ -181,6 +181,8 @@ const AddWindow = styled.div`
     line-height: 25px;
     outline: none;
     color: #666666;
+    pointer-events: ${props => props.load ? `none` : `initial`};
+    background: ${props => props.load ? `#F2F2F2` : `#FFFFFF`};
   }
 
   input::placeholder {
