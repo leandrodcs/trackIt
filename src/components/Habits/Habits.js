@@ -17,6 +17,9 @@ export default function Habits() {
   const [habits, setHabits] = useState([]);
   const [newHabit, setNewHabit] = useState("");
   const [days, setDays] = useState([]);
+  const [load, setLoad] = useState(false);
+
+  console.log(days);
 
   useEffect(() => {
     const config = {
@@ -46,6 +49,7 @@ export default function Habits() {
   }
 
   function createHabit() {
+    setLoad(true);
     const body = {
       name: newHabit,
       days,
@@ -59,9 +63,13 @@ export default function Habits() {
       .then(res => {
         setHabits([...habits, res.data]);
         setShowAddWindow(false);
+        setLoad(false);
         clearData();
       })
-      .catch(err => alert(err));
+      .catch(err => {
+        alert(err);
+        setLoad(false);
+      });
   }
 
   return (
@@ -78,7 +86,8 @@ export default function Habits() {
           <AddWindow showAddWindow={showAddWindow}>
             <input placeholder="nome do hábito" value={newHabit} onChange={e => setNewHabit(e.target.value)} />
             <DaysList>
-              {weekDays.map((weekDay, index) => <Day key={index} addDay weekDay={weekDay}  dayNumber={index + 1} habitDays={days} includeDay={includeDay} />)}
+              {weekDays.map((weekDay, index) => <Day key={index} addDay weekDay={weekDay}  
+              dayNumber={index + 1} habitDays={days} includeDay={includeDay} load={load}/>)}
             </DaysList>
             <Buttons>
               <div />
