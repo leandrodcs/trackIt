@@ -6,6 +6,7 @@ import Habits from './Habits/Habits';
 import Login from './Login';
 import Register from './Register';
 import Today from './Today/Today';
+import History from './History';
 
 
 export default function App() {
@@ -22,7 +23,7 @@ export default function App() {
           <Route exact path ="/cadastro" render={() => <Register />}/>
           <Route exact path ="/habitos" render={() => <Habits />}/>
           <Route exact path ="/hoje" render={() => <Today />}/>
-          <Route exact path ="/historico" render={() => <></>}/>
+          <Route exact path ="/historico" render={() => <History />}/>
         </Switch>
       </BrowserRouter>
     </UserContext.Provider>

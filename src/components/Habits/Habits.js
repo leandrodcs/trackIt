@@ -89,7 +89,7 @@ export default function Habits() {
               {weekDays.map((weekDay, index) => <Day key={index} addDay weekDay={weekDay}  
               dayNumber={index + 1} habitDays={days} includeDay={includeDay} load={load}/>)}
             </DaysList>
-            <Buttons>
+            <Buttons load={load}>
               <div />
               <div>
                 <button onClick={() => setShowAddWindow(false)}>Cancelar</button>
@@ -145,6 +145,7 @@ const Buttons = styled.div`
     width: 84px;
     height: 35px;
     border: none;
+    pointer-events: ${props => props.load ? `none` : `initial`};
   }
   button:nth-child(1) {
     background: #FFFFFF;
