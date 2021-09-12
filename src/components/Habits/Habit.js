@@ -31,7 +31,7 @@ export default function Habit({habitInfo, setHabits, habits}) {
     <HabitStyle>
       <p>{habitInfo.name}</p>
       <DaysList>
-      {weekDays.map((weekDay, index) =><Day weekDay={weekDay} key={index} dayNumber={index + 1} habitDays={habitInfo.days}/>)}
+      {weekDays.map((weekDay, index) =><Day weekDay={weekDay} key={index} dayNumber={index} habitDays={habitInfo.days}/>)}
       </DaysList>
       <BsTrash onClick={deleteHabit} />
     </HabitStyle>

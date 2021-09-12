@@ -7,6 +7,7 @@ import Habit from "./Habit";
 import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import UserContext from '../../contexts/UserContext';
+import LoadPage from "../LoadPage";
 
 export default function Habits() {
 
@@ -17,6 +18,7 @@ export default function Habits() {
   const [newHabit, setNewHabit] = useState("");
   const [days, setDays] = useState([]);
   const [load, setLoad] = useState(false);
+  const [majorLoad, setMajorLoad] = useState(true);
 
   useEffect(() => {
     const config = {
@@ -26,8 +28,8 @@ export default function Habits() {
     }
     axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
     .then(res => {
-      console.log(res.data);
       setHabits(res.data);
+      setMajorLoad(false);
     })
     .catch(err => console.log);
   }, []);
@@ -68,6 +70,12 @@ export default function Habits() {
         alert(err);
         setLoad(false);
       });
+  }
+
+  if(majorLoad) {
+    return (
+      <LoadPage />
+    )
   }
 
   return (

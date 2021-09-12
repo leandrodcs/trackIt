@@ -15,7 +15,8 @@ export default function Register() {
   const [load, setLoad] =useState(false);
   const history = useHistory();
 
-  function register() {
+  function register(event) {
+    event.preventDefault();
     const body = {
       email,
       name,
@@ -35,17 +36,17 @@ export default function Register() {
   }
 
   return (
-    <>
+    <form onSubmit={register}>
       <Wrapper load={load}>
         <img src={logo} alt=""/>
         <input value={email} onChange={e => setEmail(e.target.value)} placeholder="email" />
         <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="senha" />
         <input value={name} onChange={e => setName(e.target.value)} placeholder="nome" />
         <input value={image} onChange={e => setImage(e.target.value)} placeholder="foto" />
-        <button onClick={register}>{load ? <Loader type="ThreeDots" color="#FFFFFF" height={13} /> : `Cadastrar`}</button>
+        <button type="submit">{load ? <Loader type="ThreeDots" color="#FFFFFF" height={13} /> : `Cadastrar`}</button>
         <Link to="/">Já tem uma conta? Faça login!</Link>
       </Wrapper>
-    </>
+    </form>
   )
 }
 

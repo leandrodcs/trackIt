@@ -8,12 +8,14 @@ import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
 import 'dayjs/locale/pt-br'
+import LoadPage from "../LoadPage";
 
 export default function Today({setProgress}) {
 
   const userInfo = useContext(UserContext);
   const progressInfo = useContext(ProgressContext);
   const [tasks, setTasks] = useState([]);
+  const [majorLoad, setMajorLoad] = useState(true);
 
   useEffect(() => {
     const config = {
@@ -25,7 +27,7 @@ export default function Today({setProgress}) {
     .then(res => {
       setTasks(res.data);
       updateProgress(res.data);
-      console.log(res);
+      setMajorLoad(false);
     })
     .catch(err => alert(err));
   }, []);
@@ -38,7 +40,6 @@ export default function Today({setProgress}) {
     }
     axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config)
     .then(res => {
-      console.log(res.data);
       setTasks(res.data);
       updateProgress(res.data);
     })
@@ -53,6 +54,11 @@ export default function Today({setProgress}) {
       }
     })
     setProgress(progress);
+  }
+  if(majorLoad) {
+    return (
+      <LoadPage />
+    )
   }
 
   return (

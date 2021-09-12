@@ -18,7 +18,8 @@ export default function Login({setUser}) {
     localStorage.setItem("password", password);
   }
 
-  function logIn() {
+  function logIn(event) {
+    event.preventDefault();
     const body = {
       email,
       password
@@ -59,16 +60,17 @@ export default function Login({setUser}) {
       });
   }, []);
 
-
   return (
     <>
-      <Wrapper load={load}>
-        <img src={logo} alt=""/>
-        <input value={email} onChange={e => setEmail(e.target.value)} placeholder="email" />
-        <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="senha" />
-        <button onClick={logIn}>{load ? <Loader type="ThreeDots" color="#FFFFFF" height={13} /> : `Entrar`}</button>
-        <Link to="/cadastro">Não tem uma conta? Cadastre-se!</Link>
-      </Wrapper>
+      <form onSubmit={logIn}>
+        <Wrapper load={load}>
+            <img src={logo} alt=""/>
+            <input value={email} onChange={e => setEmail(e.target.value)} placeholder="email" />
+            <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="senha" />
+            <button type="submit">{load ? <Loader type="ThreeDots" color="#FFFFFF" height={13} /> : `Entrar`}</button>
+          <Link to="/cadastro">Não tem uma conta? Cadastre-se!</Link>
+        </Wrapper>
+      </form>
     </>
   )
 }

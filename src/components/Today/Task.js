@@ -2,12 +2,13 @@ import axios from 'axios';
 import { FaCheck } from 'react-icons/fa';
 import styled from 'styled-components';
 import UserContext from '../../contexts/UserContext';
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 export default function Task({taskInfo, updateList}) {
 
   const {name, currentSequence, highestSequence, done, id} = taskInfo;
   const userInfo = useContext(UserContext);
+  const [completed, setCompleted] = useState(done);
 
   function markHabitAsDone() {
     const config = {
@@ -18,6 +19,7 @@ export default function Task({taskInfo, updateList}) {
     axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/${done ? `uncheck` : `check`}`, {}, config)
       .then(res => {
           updateList()
+
       })
       .catch(err => alert(err));
   }

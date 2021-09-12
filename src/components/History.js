@@ -1,6 +1,9 @@
 import FooterMenu from "./FooterMenu";
 import Header from "./Header";
 import styled from 'styled-components';
+import Calendar from 'react-calendar';
+import dayjs from "dayjs";
+import 'dayjs/locale/pt-br'
 
 export default function history() {
   return (
@@ -9,6 +12,7 @@ export default function history() {
       <Background>
         <Wrapper>
           <h1>Histórico</h1>
+          {/* <Calendar locale="pt-br"/> */}
           <p>Em breve você poderá ver o histórico dos seus hábitos aqui!</p>
         </Wrapper>
       </Background>
@@ -41,5 +45,9 @@ const Wrapper = styled.div`
     color: #666666;
     font-size: 18px;
     line-height: 22px;
+  }
+
+  div {
+    
   }
 `;
