@@ -25,9 +25,10 @@ export default function Today({setProgress}) {
     .then(res => {
       setTasks(res.data);
       updateProgress(res.data);
+      console.log(res);
     })
     .catch(err => alert(err));
-  }, [userInfo.token]);
+  }, []);
 
   function updateList() {
     const config = {

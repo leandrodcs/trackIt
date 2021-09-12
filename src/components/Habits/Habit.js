@@ -5,12 +5,10 @@ import UserContext from '../../contexts/UserContext';
 import Day from "./Day";
 import axios from "axios";
 
-
-
 export default function Habit({habitInfo, setHabits, habits}) {
 
   const userInfo = useContext(UserContext);
-  const weekDays = ["S", "T", "Q", "Q", "S", "S", "D"];
+  const weekDays = ["D", "S", "T", "Q", "Q", "S", "S"];
 
   function deleteHabit() {
     if(!window.confirm("Deseja mesmo excluir esse hábito?")) {

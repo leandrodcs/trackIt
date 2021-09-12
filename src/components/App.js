@@ -9,7 +9,6 @@ import Register from './Register';
 import Today from './Today/Today';
 import History from './History';
 
-
 export default function App() {
 
   const [user, setUser] = useState(null);

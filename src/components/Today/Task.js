@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import UserContext from '../../contexts/UserContext';
 import { useContext } from "react";
 
-
 export default function Task({taskInfo, updateList}) {
 
   const {name, currentSequence, highestSequence, done, id} = taskInfo;

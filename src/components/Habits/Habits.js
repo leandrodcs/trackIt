@@ -10,7 +10,7 @@ import UserContext from '../../contexts/UserContext';
 
 export default function Habits() {
 
-  const weekDays = ["S", "T", "Q", "Q", "S", "S", "D"];
+  const weekDays = ["D", "S", "T", "Q", "Q", "S", "S"];
   const [showAddWindow, setShowAddWindow] = useState(false);
   const userInfo = useContext(UserContext);
   const [habits, setHabits] = useState([]);
@@ -30,7 +30,7 @@ export default function Habits() {
       setHabits(res.data);
     })
     .catch(err => console.log);
-  }, [userInfo.token]);
+  }, []);
 
   function includeDay(dayNumber, selecting) {
     if(selecting) {
@@ -85,7 +85,7 @@ export default function Habits() {
             <input placeholder="nome do hábito" value={newHabit}  onChange={e => setNewHabit(e.target.value)} />
             <DaysList>
               {weekDays.map((weekDay, index) => <Day key={index} addDay weekDay={weekDay}  
-              dayNumber={index + 1} habitDays={days} includeDay={includeDay} load={load}/>)}
+              dayNumber={index} habitDays={days} includeDay={includeDay} load={load}/>)}
             </DaysList>
             <Buttons load={load}>
               <div />
@@ -96,7 +96,7 @@ export default function Habits() {
             </Buttons>
           </AddWindow>
           <HabitsList>
-            {habits.map((habit, index) => <Habit habitInfo={habit} key={habit.id} dayNumber={index + 1} setHabits={setHabits} habits={habits} />)}
+            {habits.map((habit, index) => <Habit habitInfo={habit} key={habit.id} dayNumber={index} setHabits={setHabits} habits={habits} />)}
           </HabitsList>
           {!habits.length
             ?
