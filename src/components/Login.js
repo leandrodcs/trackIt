@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../assets/logo.png';
@@ -8,10 +8,15 @@ import Loader from "react-loader-spinner";
 
 export default function Login({setUser}) {
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(localStorage.getItem("email") || "");
+  const [password, setPassword] = useState(localStorage.getItem("password") || "");
   const [load, setLoad] =useState(false);
   const history = useHistory();
+
+  function saveLogInInfo() {
+    localStorage.setItem("email", email);
+    localStorage.setItem("password", password);
+  }
 
   function logIn() {
     const body = {
@@ -24,12 +29,36 @@ export default function Login({setUser}) {
         setUser(res.data);
         history.push("/hoje");
         setLoad(false);
+        saveLogInInfo();
       })
       .catch(err => {
         alert("Email ou senha incorretos ou inexistentes!");
         setLoad(false);
       });
   }
+
+  useEffect(() => {
+    if(!email && !password) {
+      return;
+    }
+    const body = {
+      email,
+      password
+    };
+    setLoad(true);
+    axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", body)
+      .then(res => {
+        setUser(res.data);
+        history.push("/hoje");
+        setLoad(false);
+        saveLogInInfo();
+      })
+      .catch(err => {
+        alert("Email ou senha incorretos ou inexistentes!");
+        setLoad(false);
+      });
+  }, []);
+
 
   return (
     <>
