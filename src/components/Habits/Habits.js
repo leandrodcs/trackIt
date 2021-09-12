@@ -51,6 +51,10 @@ export default function Habits() {
   }
 
   function createHabit() {
+    if (!days.length) {
+      alert("Selecione ao menos um dia da semana!");
+      return;
+    }
     setLoad(true);
     const body = {
       name: newHabit,
@@ -69,7 +73,7 @@ export default function Habits() {
         clearData();
       })
       .catch(err => {
-        alert(err);
+        alert("O hábito precisa de um nome!")
         setLoad(false);
       });
   }
