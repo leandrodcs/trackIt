@@ -8,6 +8,8 @@ import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import UserContext from '../../contexts/UserContext';
 import LoadPage from "../LoadPage";
+import Loader from "react-loader-spinner";
+
 
 export default function Habits() {
 
@@ -99,7 +101,7 @@ export default function Habits() {
               <div />
               <div>
                 <button onClick={() => setShowAddWindow(false)}>Cancelar</button>
-                <button onClick={createHabit}>Salvar</button>
+                <button onClick={createHabit}>{load ? <Loader type="ThreeDots" color="#FFFFFF" height={13} /> : `Salvar`}</button>
               </div>
             </Buttons>
           </AddWindow>
@@ -152,6 +154,7 @@ const Buttons = styled.div`
     height: 35px;
     border: none;
     pointer-events: ${props => props.load ? `none` : `initial`};
+    opacity: ${props => props.load ? `0.7` : `1`};
   }
   button:nth-child(1) {
     background: #FFFFFF;
