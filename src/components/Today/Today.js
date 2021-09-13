@@ -71,7 +71,7 @@ export default function Today({setProgress}) {
             <p>{!progressInfo ? `Nenhum hábito concluído ainda` : `${(progressInfo*100).toFixed(0)}% dos hábitos concluídos`}</p>
           </Day>
           <TaskList>
-            {tasks.map(task => <Task taskInfo={task} key={task.id} updateList={updateList}/>)}
+            {tasks.map(task => <Task taskInfo={task} key={task.id} updateList={updateList} />)}
           </TaskList>
         </Wrapper>
       </Background>

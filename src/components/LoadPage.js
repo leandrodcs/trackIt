@@ -2,15 +2,13 @@ import Header from "./Header";
 import FooterMenu from "./FooterMenu";
 import styled from 'styled-components';
 
-
-
 export default function LoadPage() {
   return (
   <>
     <Header />
     <Background>
       <Wrapper>
-        <img src="https://c.tenor.com/I6kN-6X7nhAAAAAi/loading-buffering.gif" />
+        <img src="https://c.tenor.com/I6kN-6X7nhAAAAAi/loading-buffering.gif" alt="loading..." />
       </Wrapper>
     </Background>
     <FooterMenu />

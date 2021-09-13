@@ -8,7 +8,6 @@ export default function Task({taskInfo, updateList}) {
 
   const {name, currentSequence, highestSequence, done, id} = taskInfo;
   const userInfo = useContext(UserContext);
-  const [completed, setCompleted] = useState(done);
 
   function markHabitAsDone() {
     const config = {
@@ -18,8 +17,7 @@ export default function Task({taskInfo, updateList}) {
     }
     axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/${done ? `uncheck` : `check`}`, {}, config)
       .then(res => {
-          updateList()
-
+        updateList()
       })
       .catch(err => alert(err));
   }
