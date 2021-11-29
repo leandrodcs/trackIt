@@ -10,7 +10,7 @@
   <p align="center">
     Keep track of all your chores in a daily basis.
     <br />
-    <a href="https://github.com/leandrodcs/MyWallet-front"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/leandrodcs/trackIt"><strong>Explore the docs »</strong></a>
     <br />
     <a href="https://my-wallet-sepia.vercel.app/">View Demo</a>
     <br />

@@ -6,6 +6,7 @@ import logo from '../assets/logo.png';
 import { useHistory } from 'react-router';
 import Loader from "react-loader-spinner";
 import UserContext from '../contexts/UserContext';
+import { sendAlert } from './Alerts';
 
 export default function Login({setUser}) {
 
@@ -42,7 +43,7 @@ export default function Login({setUser}) {
         localStorage.setItem("user", JSON.stringify(res.data));
       })
       .catch(err => {
-        alert("Email ou senha incorretos ou inexistentes!");
+        sendAlert('error', '', 'Email e/ou senha incorretos.');
         setLoad(false);
       });
   }
@@ -60,7 +61,7 @@ export default function Login({setUser}) {
         localStorage.setItem("user", JSON.stringify(res.data));
       })
       .catch(err => {
-        alert("Email ou senha incorretos ou inexistentes!");
+        sendAlert('error', '', 'Email e/ou senha incorretos.');
         setLoad(false);
       });
   }, [createBody, history, setUser, userInfo]);

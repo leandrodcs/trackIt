@@ -3,6 +3,7 @@ import { FaCheck } from 'react-icons/fa';
 import styled from 'styled-components';
 import UserContext from '../../contexts/UserContext';
 import { useContext } from "react";
+import { sendAlert } from '../Alerts';
 
 export default function Task({taskInfo, updateList}) {
 
@@ -19,7 +20,7 @@ export default function Task({taskInfo, updateList}) {
       .then(res => {
         updateList()
       })
-      .catch(err => alert(err));
+      .catch(err => sendAlert('error', '', err));
   }
 
   return (

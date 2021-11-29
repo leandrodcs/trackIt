@@ -9,6 +9,7 @@ import axios from "axios";
 import UserContext from '../../contexts/UserContext';
 import LoadPage from "../LoadPage";
 import Loader from "react-loader-spinner";
+import { sendAlert } from "../Alerts";
 
 
 export default function Habits() {
@@ -52,7 +53,7 @@ export default function Habits() {
 
   function createHabit() {
     if (!days.length) {
-      alert("Selecione ao menos um dia da semana!");
+      sendAlert('error', '','Selecione ao menos um dia da semana!');
       return;
     }
     setLoad(true);
@@ -73,7 +74,7 @@ export default function Habits() {
         clearData();
       })
       .catch(err => {
-        alert("O hábito precisa de um nome!")
+        sendAlert('error', '', 'O hábito precisa de um nome!');
         setLoad(false);
       });
   }

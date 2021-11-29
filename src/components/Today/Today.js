@@ -10,6 +10,7 @@ import dayjs from "dayjs";
 import 'dayjs/locale/pt-br'
 import LoadPage from "../LoadPage";
 import { useHistory } from "react-router";
+import { sendAlert } from "../Alerts";
 
 export default function Today({setProgress}) {
 
@@ -32,7 +33,7 @@ export default function Today({setProgress}) {
       updateProgress(res.data);
       setMajorLoad(false);
     })
-    .catch(err => alert(err));
+    .catch(err => sendAlert('error', '', err));
   }, [history, updateProgress, userInfo.image, userInfo.token]);
 
   function updateList() {

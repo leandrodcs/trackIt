@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import logo from '../assets/logo.png';
 import { useHistory } from 'react-router';
 import Loader from "react-loader-spinner";
+import { sendAlert } from './Alerts';
 
 export default function Register() {
 
@@ -30,7 +31,7 @@ export default function Register() {
         setLoad(false);
       })
       .catch(err => {
-        alert("Preencha todos os campos corretamente!");
+        sendAlert('error', '', 'Preencha todos os campos corretamente.')
         setLoad(false);
       });
   }
