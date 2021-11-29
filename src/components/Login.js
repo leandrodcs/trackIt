@@ -98,6 +98,7 @@ const Wrapper = styled.div`
   input {
     font-family: "Lexend Deca", sans-serif;
     width: 100%;
+    max-width: 400px;
     height: 45px;
     border: 1px solid #D5D5D5;
     border-radius: 5px;
@@ -115,6 +116,7 @@ const Wrapper = styled.div`
   button {
     background: #52B6FF;
     width: 100%;
+    max-width: 200px;
     height: 45px;
     border: none;
     border-radius: 5px;

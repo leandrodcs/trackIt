@@ -12,7 +12,7 @@
     <br />
     <a href="https://github.com/leandrodcs/trackIt"><strong>Explore the docs »</strong></a>
     <br />
-    <a href="https://my-wallet-sepia.vercel.app/">View Demo</a>
+    <a href="track-it-omega.vercel.app">View Demo</a>
     <br />
   </p>
 </p>
