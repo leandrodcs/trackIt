@@ -4,6 +4,7 @@ import { useContext } from "react";
 import UserContext from '../../contexts/UserContext';
 import Day from "./Day";
 import axios from "axios";
+import { sendConfirm } from "../Alerts";
 
 export default function Habit({habitInfo, setHabits, habits}) {
 
@@ -11,20 +12,25 @@ export default function Habit({habitInfo, setHabits, habits}) {
   const weekDays = ["D", "S", "T", "Q", "Q", "S", "S"];
 
   function deleteHabit() {
-    if(!window.confirm("Deseja mesmo excluir esse hábito?")) {
-      return;
-    }
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`
+    sendConfirm('warning', '', 'Quer remover esse hábito?')
+    .then(result => {
+      if(result.isConfirmed) {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`
+          }
+        }
+        axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habitInfo.id}`, config)
+          .then(res => {
+            console.log(res)
+            setHabits(habits.filter(habit => !(habit.id === habitInfo.id) ? true : false))
+          })
+          .catch(err => console.log);
+      } else if (result.isDenied) {
+        return
       }
-    }
-    axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habitInfo.id}`, config)
-      .then(res => {
-        console.log(res)
-        setHabits(habits.filter(habit => !(habit.id === habitInfo.id) ? true : false))
-      })
-      .catch(err => console.log);
+    })
+
   }
 
   return (

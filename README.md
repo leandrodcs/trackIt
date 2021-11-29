@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/leandrodcs/trackIt">
-      <img src="./src/assets/logo.png" align="center" />
+      <img src="./src/assets/trackit.gif" align="center" />
   </a>
 
   <h3 align="center">TrackIt</h3>
