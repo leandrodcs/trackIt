@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
+import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 import styled from 'styled-components';
 import ProgressContext from '../contexts/ProgressContext';
 import { useContext } from "react";
@@ -13,7 +13,15 @@ export default function FooterMenu() {
         <Menu>
             <Link to="/habitos">Hábitos</Link>
             <Link to="/hoje">
-              <CircularProgressbarWithChildren maxValue={1} value={progressInfo}><p>Hoje</p></CircularProgressbarWithChildren>
+              <CircularProgressbarWithChildren 
+                maxValue={1} 
+                value={progressInfo}
+                styles={buildStyles({
+                  pathTransitionDuration: 0.5,
+                })}
+              >
+                  <p>Hoje</p>
+              </CircularProgressbarWithChildren>
             </Link>
             <Link to="/historico">Histórico</Link>
         </Menu>
