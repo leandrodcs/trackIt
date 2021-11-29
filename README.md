@@ -1,8 +1,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/leandrodcs/MyWallet-front">
-      <img src="./public/mywalletgif.gif" align="center" />
+  <a href="https://github.com/leandrodcs/trackIt">
+      <img src="./src/assets/logo.png" align="center" />
   </a>
 
   <h3 align="center">TrackIt</h3>
@@ -43,49 +43,21 @@ npm install npm@latest -g
 
 ### Installation
 
-1. Create a root project folder named gratibox for semantics
+1. Clone this front-end repo
 ```sh
-mkdir mywallet
+git clone https://github.com/leandrodcs/trackIt.git
 ```
-2. Clone the front-end repo (within the /gratibox folder)
-```sh
-git clone https://github.com/leandrodcs/MyWallet-front.git
-```
-3. Install NPM packages for the front-end repo
+2. Install NPM packages for the repo
 ```sh
 npm install
 ```
-4. Clone the back-end repo (within the /gratibox folder)
-```sh
-git clone https://github.com/leandrodcs/MyWallet-back.git
-```
-5. Install NPM packages for the back-end repo
-```sh
-npm install
-```
-6. Create a database using the command below via postgres
-```sh
-CREATE DATABASE mywallet
-```
-7. Inside the created database, create tables using the dump included in the back-end repo <a href="https://github.com/leandrodcs/gratibox-back/blob/main/dump.sql">here</a>.
-
-8. Connect to the created database using the .env.example included in the back-end repo <a href="https://github.com/leandrodcs/MyWallet-back/blob/main/.env.example">here</a>, to make it easy, name your .env file like so ".env.dev".
 
 ### Running
 
-1. On the back-end repo run the server connected to the database you just created using the following command.
+1. On the created clone repo use the following command
 ```sh
-npm run dev
+npm start
 ```
-2. Now on the fron-end repo use the same command you just used on step 8 and you should be good.
-
-## Usage
-
-Visitores need to `sign-up` and later `sign-in` to be able to use mywallet.
-
-Once signed-in, users can add their earnings or expenses on the buttons located at the bottom of the homepage.
-
-Once a value is added, it can now be viewed together with your current balance at the homepage.
 
 <!-- Developer -->
 ## Developer
