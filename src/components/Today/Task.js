@@ -2,7 +2,7 @@ import axios from 'axios';
 import { FaCheck } from 'react-icons/fa';
 import styled from 'styled-components';
 import UserContext from '../../contexts/UserContext';
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 export default function Task({taskInfo, updateList}) {
 

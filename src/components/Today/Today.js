@@ -20,7 +20,7 @@ export default function Today({setProgress}) {
   const history = useHistory();
 
   useEffect(() => {
-    if (userInfo === null) history.push('/');
+    if (!userInfo.image) return history.push('/');
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.token}`
@@ -33,7 +33,7 @@ export default function Today({setProgress}) {
       setMajorLoad(false);
     })
     .catch(err => alert(err));
-  }, []);
+  }, [history, updateProgress, userInfo.image, userInfo.token]);
 
   function updateList() {
     const config = {
@@ -49,6 +49,7 @@ export default function Today({setProgress}) {
     .catch(err => console.log);
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   function updateProgress(tasks) {
     let progress = 0;
     tasks.forEach(task => {

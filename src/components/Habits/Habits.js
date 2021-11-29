@@ -34,7 +34,7 @@ export default function Habits() {
       setMajorLoad(false);
     })
     .catch(err => console.log);
-  }, []);
+  }, [userInfo.token]);
 
   function includeDay(dayNumber, selecting) {
     if(selecting) {

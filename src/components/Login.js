@@ -1,26 +1,39 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../assets/logo.png';
 import { useHistory } from 'react-router';
 import Loader from "react-loader-spinner";
+import UserContext from '../contexts/UserContext';
 
 export default function Login({setUser}) {
 
-  const [email, setEmail] = useState(localStorage.getItem("email") || "");
-  const [password, setPassword] = useState(localStorage.getItem("password") || "");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [load, setLoad] =useState(false);
+  const userInfo = useContext(UserContext);
   const history = useHistory();
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  function createBody(storage) {
+
+    if(storage) {
+      return {
+        email: userInfo.email,
+        password: userInfo.password,
+      }
+    }
+    return {
+      email,
+      password,
+    }
+  }
 
   function logIn(event) {
     event.preventDefault();
-    const body = {
-      email,
-      password
-    };
     setLoad(true);
-    axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", body)
+    axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", createBody())
       .then(res => {
         setUser(res.data);
         console.log(res.data);
@@ -35,15 +48,11 @@ export default function Login({setUser}) {
   }
 
   useEffect(() => {
-    if(!email && !password) {
+    if(!userInfo.token) {
       return;
     }
-    const body = {
-      email,
-      password
-    };
     setLoad(true);
-    axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", body)
+    axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", createBody(true))
       .then(res => {
         setUser(res.data);
         history.push("/hoje");
@@ -54,7 +63,7 @@ export default function Login({setUser}) {
         alert("Email ou senha incorretos ou inexistentes!");
         setLoad(false);
       });
-  }, []);
+  }, [createBody, history, setUser, userInfo]);
 
   return (
     <>

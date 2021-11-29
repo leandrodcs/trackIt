@@ -8,7 +8,7 @@ export default function Header() {
   const history = useHistory();
 
   useEffect(() => {
-    if(userInfo === null) return history.push('/');
+    if(!userInfo.image) return history.push('/');
   }, [userInfo, history]);
 
   return (
