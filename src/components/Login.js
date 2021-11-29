@@ -13,11 +13,6 @@ export default function Login({setUser}) {
   const [load, setLoad] =useState(false);
   const history = useHistory();
 
-  function saveLogInInfo() {
-    localStorage.setItem("email", email);
-    localStorage.setItem("password", password);
-  }
-
   function logIn(event) {
     event.preventDefault();
     const body = {
@@ -28,9 +23,10 @@ export default function Login({setUser}) {
     axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", body)
       .then(res => {
         setUser(res.data);
+        console.log(res.data);
         history.push("/hoje");
         setLoad(false);
-        saveLogInInfo();
+        localStorage.setItem("user", JSON.stringify(res.data));
       })
       .catch(err => {
         alert("Email ou senha incorretos ou inexistentes!");
@@ -52,7 +48,7 @@ export default function Login({setUser}) {
         setUser(res.data);
         history.push("/hoje");
         setLoad(false);
-        saveLogInInfo();
+        localStorage.setItem("user", JSON.stringify(res.data));
       })
       .catch(err => {
         alert("Email ou senha incorretos ou inexistentes!");

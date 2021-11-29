@@ -1,16 +1,20 @@
 import styled from 'styled-components';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import UserContext from '../contexts/UserContext';
+import { useHistory } from 'react-router';
 
 export default function Header() {
-
   const userInfo = useContext(UserContext);
-  const {image} =userInfo;
+  const history = useHistory();
+
+  useEffect(() => {
+    if(userInfo === null) return history.push('/');
+  }, [userInfo, history]);
 
   return (
     <HeaderStyle>
       <Title>TrackIt</Title>
-      <img src={image} alt=""/>
+      <img src={userInfo.image} alt=""/>
     </HeaderStyle>
 );
 }

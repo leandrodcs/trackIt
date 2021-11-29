@@ -9,6 +9,7 @@ import axios from "axios";
 import dayjs from "dayjs";
 import 'dayjs/locale/pt-br'
 import LoadPage from "../LoadPage";
+import { useHistory } from "react-router";
 
 export default function Today({setProgress}) {
 
@@ -16,8 +17,10 @@ export default function Today({setProgress}) {
   const progressInfo = useContext(ProgressContext);
   const [tasks, setTasks] = useState([]);
   const [majorLoad, setMajorLoad] = useState(true);
+  const history = useHistory();
 
   useEffect(() => {
+    if (userInfo === null) history.push('/');
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.token}`

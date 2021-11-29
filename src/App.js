@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import UserContext from '../contexts/UserContext';
-import ProgressContext from '../contexts/ProgressContext';
-import '../reset.css';
-import Habits from './Habits/Habits';
-import Login from './Login';
-import Register from './Register';
-import Today from './Today/Today';
-import History from './History';
+import UserContext from './contexts/UserContext';
+import ProgressContext from './contexts/ProgressContext';
+import './assets/reset.css';
+import Habits from './components/Habits/Habits';
+import Login from './components/Login';
+import Register from './components/Register';
+import Today from './components/Today/Today';
+import History from './components/History';
 
 export default function App() {
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || {});
   const [progress, setProgress] = useState(0);
 
   return (
